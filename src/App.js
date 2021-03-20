@@ -4,16 +4,22 @@ import React, { Component } from 'react'
 import {CardList} from './components/card-list/cardList'
 
 class App extends Component {
-  constructor() {
+  constructor() { 
     super();
     this.state = {
-      monsters: [
-      ]
+      monsters: [],
+      searchField:'',
     }
-
+  
 
 
   }
+  // onchange(e){
+  //   e.preventDefault()
+  //   this.setState({ searchField:e.target.value})
+  //   console.log(e.target.value)
+  // }
+
   componentDidMount() {
     fetch('https://jsonplaceholder.typicode.com/users')
       .then(res => res.json())
@@ -23,6 +29,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <input type='search' placeholder='search monsters' onChange={e=>this.setState({ searchField:e.target.value},()=> console.log(this.state))} />
         <CardList monsters= {this.state.monsters}>
       
         </CardList>
