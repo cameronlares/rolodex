@@ -1,47 +1,39 @@
-
-import './App.css';
-import React, { Component } from 'react'
-import {CardList} from './components/card-list/cardList'
-
+import "./App.css";
+import React, { Component } from "react";
+import { CardList } from "./components/card-list/cardList";
+import {SearchBox}  from "./components/search-box/search-box"
 class App extends Component {
-  constructor() { 
+  constructor() {
     super();
     this.state = {
       monsters: [],
-      searchField:'',
-    }
-  
-
-
+      searchField: "",
+    };
   }
-  // onchange(e){
-  //   e.preventDefault()
-  //   this.setState({ searchField:e.target.value})
-  //   console.log(e.target.value)
-  // }
+ handleChange(e){
+  this.setState({ searchField: e.target.value }, () =>
+    console.log(this.state)
+  )
+ }
 
   componentDidMount() {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then(res => res.json())
-      .then(users => this.setState({ monsters: users }))
-      ;
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((res) => res.json())
+      .then((users) => this.setState({ monsters: users }));
   }
   render() {
-
-    const { monsters,searchField}  = this.state;
+    const { monsters, searchField } = this.state;
     //equavilent of this.state.monsters
     //equavilent of this.state.searchField
-const filteredMonsters = monsters.filter(monsters => 
- monsters.name.toLowerCase().includes(searchField.toLocaleLowerCase()) 
-  )
+    const filteredMonsters = monsters.filter((monsters) =>
+      monsters.name.toLowerCase().includes(searchField.toLowerCase())
+    );
 
     return (
       <div className="App">
-        <input type='search' placeholder='search monsters' onChange={e=>this.setState({ searchField:e.target.value},()=> console.log(this.state))} />
-        <CardList monsters= {filteredMonsters}>
-      
-        </CardList>
         
+        <SearchBox placeholder = "search monsters" handleChange ={this.handleChange}/>
+        <CardList monsters={filteredMonsters}></CardList>
       </div>
     );
   }
