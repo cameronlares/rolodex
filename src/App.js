@@ -7,10 +7,13 @@ class App extends Component {
     super();
     this.state = {
       monsters: [],
-      searchField: "",
+      searchField: '',
+
+
     };
   }
- handleChange(e){
+ handleChange= (e) => { //use arrow function, it automatically bind, automatically lexical scope
+   e.preventDefault()
   this.setState({ searchField: e.target.value }, () =>
     console.log(this.state)
   )
